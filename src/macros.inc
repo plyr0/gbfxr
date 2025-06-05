@@ -4,7 +4,7 @@
 ;;; For example:
 ;;;     if_eq 9, jr, .label
 ;;; Will jump-relative to .label if a == 9.
-if_eq: MACRO
+MACRO if_eq
     cp \1
     \2 z, \3
 ENDM
@@ -15,7 +15,7 @@ ENDM
 ;;; For example:
 ;;;     if_ne 9, jr, .label
 ;;; Will jump-relative to .label if a != 9.
-if_ne: MACRO
+MACRO if_ne
     cp \1
     \2 nz, \3
 ENDM
@@ -26,7 +26,7 @@ ENDM
 ;;; For example:
 ;;;     if_lt 9, jr, .label
 ;;; Will jump-relative to .label if a < 9 (unsigned).
-if_lt: MACRO
+MACRO if_lt
     cp \1
     \2 c, \3
 ENDM
@@ -37,7 +37,7 @@ ENDM
 ;;; For example:
 ;;;     if_le 9, jr, .label
 ;;; Will jump-relative to .label if a <= 9 (unsigned).
-if_le: MACRO
+MACRO if_le
   IF (\1) >= $ff
     \2 \3
   ELSE
@@ -51,7 +51,7 @@ ENDM
 ;;; For example:
 ;;;     if_le 9, jr, .label
 ;;; Will jump-relative to .label if a <= 9 (unsigned).
-if_gt: MACRO
+MACRO if_gt
   IF (\1) == 0
     or a
     \2 nz, \3
@@ -66,7 +66,7 @@ ENDM
 ;;; For example:
 ;;;     if_ge 9, jr, .label
 ;;; Will jump-relative to .label if a >= 9 (unsigned).
-if_ge: MACRO
+MACRO if_ge
     cp \1
     \2 nc, \3
 ENDM
@@ -77,7 +77,7 @@ ENDM
 ;;; For example:
 ;;;     if_neg jr, .label
 ;;; Will jump-relative to .label if a < 0 (signed).
-if_neg: MACRO
+MACRO if_neg
     if_ge $80, \1, \2
 ENDM
 
@@ -87,6 +87,6 @@ ENDM
 ;;; For example:
 ;;;     if_nonneg jr, .label
 ;;; Will jump-relative to .label if a >= 0 (signed).
-if_nonneg: MACRO
+MACRO if_nonneg
     if_lt $80, \1, \2
 ENDM

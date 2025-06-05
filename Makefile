@@ -1,5 +1,9 @@
 #=============================================================================#
 
+CC = gcc
+RGBLINK = /mnt/c/gb/rgbds-0.9.2-win64/rgblink.exe
+RGBFIX = /mnt/c/gb/rgbds-0.9.2-win64/rgbfix.exe
+RGBASM = /mnt/c/gb/rgbds-0.9.2-win64/rgbasm.exe
 SRCDIR = src
 OUTDIR = out
 BINDIR = $(OUTDIR)/bin
@@ -29,7 +33,7 @@ clean:
 
 $(AHI_TO_2BPP): build/ahi_to_2bpp.c
 	@mkdir -p $(@D)
-	cc -o $@ $<
+	$(CC) -o $@ $<
 
 $(DATADIR)/%.2bpp: $(SRCDIR)/%.ahi $(AHI_TO_2BPP)
 	@mkdir -p $(@D)
@@ -39,12 +43,12 @@ $(DATADIR)/%.2bpp: $(SRCDIR)/%.ahi $(AHI_TO_2BPP)
 
 $(ROMFILE): $(OBJFILES)
 	@mkdir -p $(@D)
-	rgblink --dmg --tiny -o $@ $^
-	rgbfix -v -p 0 $@
+	$(RGBLINK) --dmg --tiny -o $@ $^
+	$(RGBFIX) -v -p 0 $@
 
 define compile-asm
 	@mkdir -p $(@D)
-	rgbasm -Wall -Werror -o $@ $<
+	$(RGBASM) -Wall -Werror -o $@ $<
 endef
 
 $(OBJDIR)/data.o: $(SRCDIR)/data.asm $(DATADIR)/font.2bpp \
